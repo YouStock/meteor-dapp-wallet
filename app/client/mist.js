@@ -63,3 +63,4 @@ Meteor.startup(function() {
     Tracker.autorun(updateMistMenu);
 
 });
+

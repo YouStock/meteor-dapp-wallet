@@ -48,5 +48,17 @@ Meteor.startup(function() {
         }
     });
 
+	 //redefine EthTools.formatBalance to show aura instead of ether
+	 var origFmt = EthTools.formatBalance;
+	 EthTools.formatBalance = function() {
+		  var origResult = origFmt.apply(EthTools, arguments);
+		  return origResult.replace(/ETHER/g,"aura").replace(/ether/g,"aura").replace(/ETH/g,"ARA");
+	 };
+	 Template.registerHelper('dapp_formatBalance', EthTools.formatBalance);
 
+	 var origUni = Template['dapp_selectGasPrice'].__helpers[' unit'];
+	 Template['dapp_selectGasPrice'].__helpers[' unit'] = function() {
+		  var origResult = origUni.apply(this, arguments);
+		  return origResult.replace(/ETHER/g,"aura").replace(/ether/g,"aura").replace(/ETH/g,"ARA");
+	 };
 });
